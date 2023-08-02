@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Movie</title>
+    <style>
+        #btn{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+        <h3>Search Movie</h3>
+    </div>
+    <label for="web">Choose a Website:</label>
+    <select name="cars" id="web">
+        <option value="1tamilmv">1tamilmv</option>
+        <option value="1tamilblasters">1tamilblasters</option>
+    </select>
+    <label>Domains: </label>
+    <input type="text" id="domain" style="width: 40px;">
+    
+    <p>Enter your movie name :</p>
+    <div>
+        <input type="text" id="val">
+        <button id="btn">Search</button>
+    </div>    
+    <script>
+        document.getElementById('btn').onclick=()=>{
+            var getDomains=document.getElementById('domain').value
+            var val=document.getElementById('val').value
+            var getWeb=document.getElementById('web').value
+            if((getDomains && val) != ''){
+                var url=`https://www.google.com/search?q=site:${getWeb}.${getDomains} ${val}`;
+                window.open(url, "_blank");
+            }else{
+                alert("Enter domains or maovie name")
+            }
+        }
+    </script>
+</body>
+
+</html>
