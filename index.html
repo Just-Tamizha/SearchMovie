@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Search Engine</title>
+    <title>CineSeek • Target Search</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --accent: #6366f1;
-            --accent-hover: #4f46e5;
-            --btn-secondary: rgba(255, 255, 255, 0.08);
-            --btn-secondary-hover: rgba(255, 255, 255, 0.14);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --input-bg: rgba(15, 23, 42, 0.6);
-            --input-border: rgba(255, 255, 255, 0.12);
+            --bg: #faf7ff;
+            --grad-1: rgba(168, 85, 247, 0.08);
+            --grad-2: rgba(236, 72, 153, 0.06);
+            --card: rgba(255, 255, 255, 0.92);
+            --card-border: rgba(233, 213, 255, 0.8);
+            --card-shadow: 0 20px 45px -10px rgba(126, 34, 206, 0.08);
+            --primary: #9333ea;
+            --primary-end: #a855f7;
+            --primary-glow: rgba(147, 51, 234, 0.25);
+            --surface: #ffffff;
+            --surface-border: #e9d5ff;
+            --surface-focus: #9333ea;
+            --text-title: #3b0764;
+            --text-body: #581c87;
+            --text-sub: #7e22ce;
+            --btn-sec-bg: #f3e8ff;
+            --btn-sec-hover: #e9d5ff;
+            --badge-grad: linear-gradient(135deg, #9333ea, #ec4899);
         }
 
         * {
@@ -31,180 +38,287 @@
 
         body {
             min-height: 100vh;
-            background: var(--bg-gradient);
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 10% 10%, var(--grad-1) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, var(--grad-2) 0px, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: var(--text-body);
+        }
+
+        .panel-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            padding: 36px 32px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .brand-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--badge-grad);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            color: var(--text-main);
+            color: #ffffff;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 18px -4px var(--primary-glow);
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 32px 28px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        .brand-zone h1 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--text-title);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
+        .brand-zone p {
+            color: var(--text-sub);
+            font-size: 0.86rem;
+            margin-top: 4px;
         }
 
-        .header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 6px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .form-group {
+        .form-row {
             margin-bottom: 18px;
         }
 
-        label {
-            display: block;
-            font-size: 0.82rem;
-            font-weight: 600;
+        .field-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.76rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
+            letter-spacing: 0.07em;
+            color: var(--text-sub);
             margin-bottom: 8px;
         }
 
-        .grid-inputs {
+        .split-field {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1.6fr 1fr;
             gap: 12px;
         }
 
-        input[type="text"],
-        select {
+        .input-shell {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-shell input,
+        .input-shell select {
             width: 100%;
-            padding: 12px 14px;
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
+            height: 48px;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 13px;
+            color: var(--text-title);
+            font-size: 0.94rem;
+            padding: 0 16px;
             outline: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        select {
+        .input-shell input:focus,
+        .input-shell select:focus {
+            border-color: var(--surface-focus);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .input-shell select {
             cursor: pointer;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: calc(100% - 12px) center;
-            padding-right: 36px;
+            padding-right: 38px;
         }
 
-        select option {
-            background-color: #1e293b;
-            color: var(--text-main);
+        .select-caret {
+            position: absolute;
+            right: 14px;
+            pointer-events: none;
+            color: var(--text-sub);
         }
 
-        input[type="text"]:focus,
-        select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        .tld-shell::before {
+            content: ".";
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-55%);
+            color: var(--text-sub);
+            font-weight: 700;
+            font-size: 1.1rem;
+            pointer-events: none;
         }
 
-        .button-group {
+        .tld-shell input {
+            padding-left: 24px;
+        }
+
+        .actions-rack {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 12px;
+            margin-top: 24px;
         }
 
         .btn {
-            padding: 13px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
+            height: 48px;
+            border-radius: 13px;
+            font-size: 0.88rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s ease, filter 0.15s ease, background 0.15s;
         }
 
         .btn-primary {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--primary), var(--primary-end));
             color: #ffffff;
+            box-shadow: 0 6px 18px -3px var(--primary-glow);
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
+            filter: brightness(1.08);
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: var(--btn-secondary);
-            color: var(--text-main);
-            border: 1px solid var(--card-border);
+            background: var(--btn-sec-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-title);
         }
 
         .btn-secondary:hover {
-            background: var(--btn-secondary-hover);
+            background: var(--btn-sec-hover);
+            transform: translateY(-1px);
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
+        }
+
+        /* Contribution Footer */
+        .footer {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.84rem;
+            color: var(--text-sub);
+        }
+
+        .footer a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
-    <main class="container">
-        <div class="header">
-            <h1>Movie Search</h1>
-            <p>Target specific domains via Google or Direct Query</p>
-        </div>
+    <div class="panel-wrap">
+        <main class="card">
+            <div class="brand-zone">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </div>
+                <h1>CineSeek</h1>
+                <p>Targeted Index & Direct Query Engine</p>
+            </div>
 
-        <form id="searchForm" onsubmit="event.preventDefault(); triggerSearch('google');">
-            <div class="form-group">
-                <div class="grid-inputs">
-                    <div>
-                        <label for="web">Website</label>
-                        <select id="web">
-                            <option value="1tamilmv">1tamilmv</option>
-                            <option value="1tamilblasters">1tamilblasters</option>
-                            <option value="isaidub3">isaidub3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="domain">TLD</label>
-                        <input type="text" id="domain" placeholder="meme" required>
+            <form id="searchForm" onsubmit="event.preventDefault(); triggerSearch('google');">
+                <div class="form-row">
+                    <div class="split-field">
+                        <div>
+                            <label class="field-label" for="web">Target Portal</label>
+                            <div class="input-shell">
+                                <select id="web">
+                                    <option value="1tamilmv">1tamilmv</option>
+                                    <option value="1tamilblasters">1tamilblasters</option>
+                                    <option value="isaidub3">isaidub3</option>
+                                </select>
+                                <svg class="select-caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="field-label" for="domain">TLD Ext</label>
+                            <div class="input-shell tld-shell">
+                                <input type="text" id="domain" placeholder="meme" required autocomplete="off">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="val">Movie Name</label>
-                <input type="text" id="val" placeholder="e.g., I'm Game" required autocomplete="off">
-            </div>
+                <div class="form-row">
+                    <label class="field-label" for="val">Release / Movie Title</label>
+                    <div class="input-shell">
+                        <input type="text" id="val" placeholder="e.g. I'm Game, Jailer..." required autocomplete="off">
+                    </div>
+                </div>
 
-            <div class="button-group">
-                <button type="button" class="btn btn-primary" onclick="triggerSearch('google')">
-                    Google Search
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="triggerSearch('direct')">
-                    Direct Query
-                </button>
-            </div>
-        </form>
-    </main>
+                <div class="actions-rack">
+                    <button type="button" class="btn btn-primary" onclick="triggerSearch('google')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Google
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="triggerSearch('direct')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Direct
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- GitHub Contribution Footer -->
+        <footer class="footer">
+            <span>Crafted with</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#9333ea"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span>by</span>
+            <a href="https://github.com/Just-Tamizha" target="_blank" rel="noopener noreferrer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                Just-Tamizha
+            </a>
+        </footer>
+    </div>
 
     <script>
         function triggerSearch(mode) {
@@ -215,10 +329,8 @@
             if (getDomains && val) {
                 let url = '';
                 if (mode === 'google') {
-                    // Exact format from your original working code
                     url = `https://www.google.com/search?q=site:${getWeb}.${getDomains} ${val}`;
                 } else if (mode === 'direct') {
-                    // Direct forum search route
                     url = `https://${getWeb}.${getDomains}/index.php?/search/&q=${val}`;
                 }
                 window.open(url, "_blank");
