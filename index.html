@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineSeek • Target Search</title>
+    <title>Movie Search</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +26,6 @@
             --text-sub: #7e22ce;
             --btn-sec-bg: #f3e8ff;
             --btn-sec-hover: #e9d5ff;
-            --badge-grad: linear-gradient(135deg, #9333ea, #ec4899);
         }
 
         * {
@@ -65,38 +64,22 @@
             box-shadow: var(--card-shadow);
         }
 
-        .brand-zone {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .header {
             text-align: center;
             margin-bottom: 26px;
         }
 
-        .brand-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: var(--badge-grad);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 18px -4px var(--primary-glow);
-        }
-
-        .brand-zone h1 {
-            font-size: 1.55rem;
+        .header h1 {
+            font-size: 1.6rem;
             font-weight: 800;
             letter-spacing: -0.025em;
             color: var(--text-title);
+            margin-bottom: 6px;
         }
 
-        .brand-zone p {
+        .header p {
             color: var(--text-sub);
-            font-size: 0.86rem;
-            margin-top: 4px;
+            font-size: 0.88rem;
         }
 
         .form-row {
@@ -255,21 +238,16 @@
 
     <div class="panel-wrap">
         <main class="card">
-            <div class="brand-zone">
-                <div class="brand-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </div>
-                <h1>CineSeek</h1>
-                <p>Targeted Index & Direct Query Engine</p>
+            <div class="header">
+                <h1>Movie Search</h1>
+                <p>Target specific domains via Google or Direct Query</p>
             </div>
 
             <form id="searchForm" onsubmit="event.preventDefault(); triggerSearch('google');">
                 <div class="form-row">
                     <div class="split-field">
                         <div>
-                            <label class="field-label" for="web">Target Portal</label>
+                            <label class="field-label" for="web">Website</label>
                             <div class="input-shell">
                                 <select id="web">
                                     <option value="1tamilmv">1tamilmv</option>
@@ -280,7 +258,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="field-label" for="domain">TLD Ext</label>
+                            <label class="field-label" for="domain">TLD</label>
                             <div class="input-shell tld-shell">
                                 <input type="text" id="domain" placeholder="meme" required autocomplete="off">
                             </div>
@@ -289,26 +267,25 @@
                 </div>
 
                 <div class="form-row">
-                    <label class="field-label" for="val">Release / Movie Title</label>
+                    <label class="field-label" for="val">Movie Name</label>
                     <div class="input-shell">
-                        <input type="text" id="val" placeholder="e.g. I'm Game, Jailer..." required autocomplete="off">
+                        <input type="text" id="val" placeholder="e.g., I'm Game" required autocomplete="off">
                     </div>
                 </div>
 
                 <div class="actions-rack">
                     <button type="button" class="btn btn-primary" onclick="triggerSearch('google')">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        Google
+                        Google Search
                     </button>
                     <button type="button" class="btn btn-secondary" onclick="triggerSearch('direct')">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        Direct
+                        Direct Query
                     </button>
                 </div>
             </form>
         </main>
 
-        <!-- GitHub Contribution Footer -->
         <footer class="footer">
             <span>Crafted with</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#9333ea"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
