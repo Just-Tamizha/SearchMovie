@@ -3,45 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Movie</title>
+    <title>Movie Search Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        #btn{
-            text-decoration: none;
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --btn-secondary: rgba(255, 255, 255, 0.08);
+            --btn-secondary-hover: rgba(255, 255, 255, 0.14);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --input-bg: rgba(15, 23, 42, 0.6);
+            --input-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 12px) center;
+            padding-right: 36px;
+        }
+
+        select option {
+            background-color: #1e293b;
+            color: var(--text-main);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 13px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--btn-secondary);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--btn-secondary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-    <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
-        <h3>Search Movie</h3>
-    </div>
-    <label for="web">Choose a Website:</label>
-    <select name="cars" id="web">
-        <option value="1tamilmv">1tamilmv</option>
-        <option value="1tamilblasters">1tamilblasters</option>
-        <option value="isaidub3">isaidub3</option>
-    </select>
-    <label>Domains: </label>
-    <input type="text" id="domain" style="width: 40px;">
-    
-    <p>Enter your movie name :</p>
-    <div>
-        <input type="text" id="val">
-        <button id="btn">Search</button>
-    </div>    
+    <main class="container">
+        <div class="header">
+            <h1>Movie Search</h1>
+            <p>Target specific domains via Google or Direct Query</p>
+        </div>
+
+        <form id="searchForm" onsubmit="event.preventDefault(); triggerSearch('google');">
+            <div class="form-group">
+                <div class="grid-inputs">
+                    <div>
+                        <label for="web">Website</label>
+                        <select id="web">
+                            <option value="1tamilmv">1tamilmv</option>
+                            <option value="1tamilblasters">1tamilblasters</option>
+                            <option value="isaidub3">isaidub3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="domain">TLD</label>
+                        <input type="text" id="domain" placeholder="meme" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="val">Movie Name</label>
+                <input type="text" id="val" placeholder="e.g., I'm Game" required autocomplete="off">
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-primary" onclick="triggerSearch('google')">
+                    Google Search
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="triggerSearch('direct')">
+                    Direct Query
+                </button>
+            </div>
+        </form>
+    </main>
+
     <script>
-        document.getElementById('btn').onclick=()=>{
-            var getDomains=document.getElementById('domain').value
-            var val=document.getElementById('val').value
-            var getWeb=document.getElementById('web').value
-            if((getDomains && val) != ''){
-                var url=`https://www.google.com/search?q=site:${getWeb}.${getDomains} ${val}`;
+        function triggerSearch(mode) {
+            const getDomains = document.getElementById('domain').value.trim().replace(/^\./, '');
+            const val = document.getElementById('val').value.trim();
+            const getWeb = document.getElementById('web').value;
+
+            if (getDomains && val) {
+                let url = '';
+                if (mode === 'google') {
+                    // Exact format from your original working code
+                    url = `https://www.google.com/search?q=site:${getWeb}.${getDomains} ${val}`;
+                } else if (mode === 'direct') {
+                    // Direct forum search route
+                    url = `https://${getWeb}.${getDomains}/index.php?/search/&q=${val}`;
+                }
                 window.open(url, "_blank");
-            }else{
-                alert("Enter domains or maovie name")
+            } else {
+                alert("Enter domains or movie name");
             }
         }
     </script>
 </body>
-
 </html>
